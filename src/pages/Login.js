@@ -2,66 +2,104 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Get users from localStorage
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
     const user = users.find(
-      (u) => u.email === form.email && u.password === form.password
+      (u) =>
+        u.username === form.username &&
+        u.email === form.email &&
+        u.password === form.password
     );
 
     if (!user) {
-      setError("Invalid email or password");
+      setError("Invalid Username, Email or Password");
       return;
     }
 
-    // Save login state
     localStorage.setItem("currentUser", JSON.stringify(user));
     setError("");
-    alert(`Welcome ${user.username}! You are now logged in.`);
-    navigate("/"); // redirect to home or any page
+
+    alert(`Welcome ${user.username}!`);
+
+    navigate("/");
+    window.location.reload();
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <button type="submit" className="btn btn-success">
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg,#E6E6FA,#C8A2C8,#B57EDC)"
+      }}
+    >
+      <div
+        className="card shadow-lg border-0 p-4"
+        style={{
+          width: "400px",
+          borderRadius: "18px",
+          backdropFilter: "blur(12px)",
+          backgroundColor: "rgba(255,255,255,0.85)"
+        }}
+      >
+        <h2 className="text-center mb-4 fw-bold text-purple">
           Login
-        </button>
-      </form>
+        </h2>
+
+        {error && <div className="alert alert-danger">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-control"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="btn btn-primary w-100 fw-bold">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

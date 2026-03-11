@@ -1,73 +1,153 @@
-import { useState, useEffect } from "react";
-import { getCourses } from "../services/api";
-import { Card, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { getCourses, getEnrollments, addEnrollment } from "../services/api";
+import { Link, useLocation } from "react-router-dom";
 
 function Courses() {
+
   const [courses, setCourses] = useState([]);
-  const [enrolled, setEnrolled] = useState([]);
+  const [enrollments, setEnrollments] = useState([]);
+
+  const location = useLocation();
+
+  // get search query from URL
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get("search")?.toLowerCase() || "";
 
   useEffect(() => {
-    getCourses()
-      .then((data) => setCourses(data))
-      .catch((err) => console.error(err));
+    loadCourses();
   }, []);
 
-  const handleEnroll = (id) => {
-    if (!enrolled.includes(id)) {
-      setEnrolled([...enrolled, id]);
-    }
+  const loadCourses = async () => {
+    const courseData = await getCourses();
+    const enrollmentData = await getEnrollments();
+
+    setCourses(courseData || []);
+    setEnrollments(enrollmentData || []);
   };
 
+  /* ---------- ENROLL COURSE ---------- */
+
+  const handleEnroll = async (course) => {
+
+    const alreadyEnrolled = enrollments.find(
+      (e) => String(e.courseId) === String(course.id)
+    );
+
+    if (alreadyEnrolled) {
+      alert("You are already enrolled in this course!");
+      return;
+    }
+
+    const newEnrollment = {
+      id: Date.now().toString(),
+      courseId: course.id,
+      courseTitle: course.title,
+      progress: 0,
+      completedLessons: 0
+    };
+
+    await addEnrollment(newEnrollment);
+
+    alert(`Enrolled in ${course.title} successfully!`);
+
+    loadCourses();
+  };
+
+  /* ---------- FILTER COURSES ---------- */
+
+  const filteredCourses = courses.filter(course =>
+    course.title.toLowerCase().includes(searchQuery)
+  );
+
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">All Courses</h2>
 
-      <div className="row">
-        {courses.map((course) => (
-          <div className="col-md-4 mb-4" key={course.id}>
-            <Card className="shadow-sm">
+    <div className="container-fluid py-5 bg-dark bg-gradient" style={{ minHeight: "100vh" }}>
 
-              {/* COURSE IMAGE */}
-              <Card.Img
-                variant="top"
-                src={course.thumbnail}
-                alt={course.title}
-                style={{ height: "200px", objectFit: "cover" }}
-              />
+      <div className="container">
 
-              <Card.Body>
+        <h2 className="mb-5 text-center text-white fw-bold">
+          📚 Explore Our Courses
+        </h2>
 
-                <Card.Title>{course.title}</Card.Title>
+        <div className="row">
 
-                <Card.Text>
-                  Instructor: {course.instructor}
-                </Card.Text>
+          {/* If no course found */}
 
-                {/* ENROLL BUTTON */}
-                <Button
-                  variant="primary"
-                  className="me-2"
-                  onClick={() => handleEnroll(course.id)}
-                  disabled={enrolled.includes(course.id)}
-                >
-                  {enrolled.includes(course.id) ? "Enrolled" : "Enroll"}
-                </Button>
+          {filteredCourses.length === 0 && (
+            <p className="text-white text-center fs-5">
+              No courses found.
+            </p>
+          )}
 
-                {/* VIEW VIDEO BUTTON */}
-                <Button
-                  variant="success"
-                  href={course.youtubeLink}
-                  target="_blank"
-                >
-                  View Course
-                </Button>
+          {filteredCourses.map(course => {
 
-              </Card.Body>
-            </Card>
-          </div>
-        ))}
+            const enrolled = enrollments.find(
+              (e) => String(e.courseId) === String(course.id)
+            );
+
+            return (
+
+              <div className="col-md-4 mb-4" key={course.id}>
+
+                <div className="card h-100 shadow-lg border-0">
+
+                  <img
+                    src={course.thumbnail}
+                    className="card-img-top"
+                    alt={course.title}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body">
+
+                    <h5 className="card-title fw-bold">{course.title}</h5>
+
+                    <p><strong>Instructor:</strong> {course.instructor}</p>
+                    <p><strong>Duration:</strong> {course.duration}</p>
+                    <p><strong>Price:</strong> ₹{course.price}</p>
+
+                    {enrolled && (
+                      <span className="badge bg-success mb-2 me-2">
+                        Enrolled
+                      </span>
+                    )}
+
+                    <div className="d-flex gap-2 mt-3">
+
+                      <Link
+                        to={`/player/${course.id}`}
+                        className="btn btn-success flex-fill"
+                      >
+                        Watch
+                      </Link>
+
+                      {!enrolled && (
+                        <button
+                          className="btn btn-primary flex-fill"
+                          onClick={() => handleEnroll(course)}
+                        >
+                          Enroll
+                        </button>
+                      )}
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            );
+
+          })}
+
+        </div>
+
       </div>
+
     </div>
+
   );
 }
 

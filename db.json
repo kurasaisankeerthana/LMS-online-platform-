@@ -1,196 +1,233 @@
 {
   "courses": [
     {
-      "id": 1,
+      "id": "1",
       "title": "React Basics",
-      "level": "Beginner",
-      "category": "Programming",
-      "students": 120,
       "instructor": "John",
+      "price": 999,
       "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=bMknfKXIFA8",
-      "description": "Learn the fundamentals of React including components, props, state, and building dynamic user interfaces.",
-      "lessons": ["JSX Basics", "Components", "Props & State", "Event Handling"]
+      "videoUrl": "https://www.youtube.com/embed/bMknfKXIFA8",
+      "duration": "5 hours",
+      "lessons": [
+        "Introduction to React",
+        "JSX Basics",
+        "Components",
+        "Props and State",
+        "Handling Events",
+        "React Hooks",
+        "Building a Small Project"
+      ]
     },
     {
-      "id": 2,
-      "title": "Python for Beginners",
-      "level": "Beginner",
-      "category": "Programming",
-      "students": 90,
-      "instructor": "David",
-      "thumbnail": "https://img.youtube.com/vi/_uQrJ0TkZlc/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
-      "description": "Beginner friendly Python course covering variables, loops, functions, and simple applications.",
-      "lessons": ["Variables", "Loops", "Functions", "Projects"]
-    },
-    {
-      "id": 3,
-      "title": "Full Stack Development",
-      "level": "Intermediate",
-      "category": "Web Development",
-      "students": 56,
-      "instructor": "Smith",
-      "thumbnail": "https://img.youtube.com/vi/nu_pCVPKzTk/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=nu_pCVPKzTk",
-      "description": "Learn how to build complete web applications using frontend and backend technologies.",
-      "lessons": ["HTML & CSS", "JavaScript", "Node.js", "MongoDB"]
-    },
-    {
-      "id": 4,
-      "title": "Java Programming",
-      "level": "Beginner",
-      "category": "Programming",
-      "students": 120,
-      "instructor": "James",
-      "thumbnail": "https://img.youtube.com/vi/eIrMbAQSU34/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=eIrMbAQSU34",
-      "description": "Understand Java programming concepts including classes, objects, and OOP.",
-      "lessons": ["Variables & Types", "Classes & Objects", "Loops", "OOP Basics"]
-    },
-    {
-      "id": 5,
-      "title": "HTML & CSS Fundamentals",
-      "level": "Beginner",
-      "category": "Web Development",
-      "students": 85,
-      "instructor": "Emma",
-      "thumbnail": "https://img.youtube.com/vi/qz0aGYrrlhU/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=qz0aGYrrlhU",
-      "description": "Learn how to design and style modern websites using HTML5 and CSS3.",
-      "lessons": ["HTML Basics", "CSS Basics", "Layouts", "Responsive Design"]
-    },
-    {
-      "id": 6,
-      "title": "JavaScript Complete Course",
-      "level": "Intermediate",
-      "category": "Programming",
-      "students": 70,
+      "id": "2",
+      "title": "JavaScript Fundamentals",
       "instructor": "Michael",
-      "thumbnail": "https://img.youtube.com/vi/W6NZfCO5SIk/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=W6NZfCO5SIk",
-      "description": "Master JavaScript fundamentals including DOM manipulation, events, functions, and ES6 features.",
-      "lessons": ["Syntax & Variables", "DOM Manipulation", "Functions", "ES6 Features"]
+      "price": 899,
+      "thumbnail": "https://img.youtube.com/vi/PkZNo7MFNFg/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/PkZNo7MFNFg",
+      "duration": "6 hours",
+      "lessons": [
+        "Introduction to JavaScript",
+        "Variables",
+        "Functions",
+        "Arrays",
+        "Objects",
+        "DOM Manipulation"
+      ]
     },
     {
-      "id": 7,
+      "id": "3",
+      "title": "Python for Beginners",
+      "instructor": "David",
+      "price": 799,
+      "thumbnail": "https://img.youtube.com/vi/_uQrJ0TkZlc/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/_uQrJ0TkZlc",
+      "duration": "7 hours",
+      "lessons": [
+        "Python Introduction",
+        "Variables and Data Types",
+        "Loops",
+        "Functions",
+        "Lists and Dictionaries",
+        "File Handling"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "HTML & CSS Fundamentals",
+      "instructor": "Emma",
+      "price": 599,
+      "thumbnail": "https://img.youtube.com/vi/qz0aGYrrlhU/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/qz0aGYrrlhU",
+      "duration": "4 hours",
+      "lessons": [
+        "HTML Basics",
+        "Forms",
+        "CSS Introduction",
+        "Flexbox",
+        "Grid Layout",
+        "Responsive Design"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Java Programming",
+      "instructor": "James",
+      "price": 999,
+      "thumbnail": "https://img.youtube.com/vi/eIrMbAQSU34/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/eIrMbAQSU34",
+      "duration": "8 hours",
+      "lessons": [
+        "Java Basics",
+        "Variables",
+        "Control Statements",
+        "Classes and Objects",
+        "Inheritance",
+        "Exception Handling"
+      ]
+    },
+    {
+      "id": "6",
       "title": "Node.js Backend Development",
-      "level": "Intermediate",
-      "category": "Web Development",
-      "students": 60,
-      "instructor": "Daniel",
-      "thumbnail": "https://img.youtube.com/vi/TlB_eWDSMt4/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=TlB_eWDSMt4",
-      "description": "Build scalable backend applications using Node.js and Express framework.",
-      "lessons": ["Node.js Basics", "Express.js", "REST APIs", "Database Integration"]
-    },
-    {
-      "id": 8,
-      "title": "MongoDB Database Course",
-      "level": "Intermediate",
-      "category": "Web Development",
-      "students": 50,
-      "instructor": "Sophia",
-      "thumbnail": "https://img.youtube.com/vi/ExcRbA7fy_A/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=ExcRbA7fy_A",
-      "description": "Learn MongoDB database concepts including collections, documents, and CRUD operations.",
-      "lessons": ["Collections", "Documents", "CRUD Operations", "Indexes"]
-    },
-    {
-      "id": 9,
-      "title": "SQL for Beginners",
-      "level": "Beginner",
-      "category": "Data Science",
-      "students": 95,
       "instructor": "Robert",
-      "thumbnail": "https://img.youtube.com/vi/HXV3zeQKqGY/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=HXV3zeQKqGY",
-      "description": "Understand SQL queries including SELECT, INSERT, UPDATE, DELETE, and joins.",
-      "lessons": ["SELECT Queries", "INSERT/Update", "Delete", "Joins"]
+      "price": 1199,
+      "thumbnail": "https://img.youtube.com/vi/TlB_eWDSMt4/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/TlB_eWDSMt4",
+      "duration": "9 hours",
+      "lessons": [
+        "Node.js Introduction",
+        "Modules",
+        "Express.js Basics",
+        "Building APIs",
+        "Middleware",
+        "Authentication"
+      ]
     },
     {
-      "id": 10,
-      "title": "Data Structures in Java",
-      "level": "Intermediate",
-      "category": "Programming",
-      "students": 65,
-      "instructor": "William",
-      "thumbnail": "https://img.youtube.com/vi/RBSGKlAvoiM/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=RBSGKlAvoiM",
-      "description": "Learn important data structures like arrays, stacks, queues, linked lists, and trees.",
-      "lessons": ["Arrays", "Stacks", "Queues", "Linked Lists", "Trees"]
-    },
-    {
-      "id": 11,
-      "title": "Machine Learning Basics",
-      "level": "Advanced",
-      "category": "Data Science",
-      "students": 45,
-      "instructor": "Olivia",
-      "thumbnail": "https://img.youtube.com/vi/GwIo3gDZCVQ/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=GwIo3gDZCVQ",
-      "description": "Introduction to machine learning concepts such as regression, classification, and predictive models.",
-      "lessons": ["Regression", "Classification", "Predictive Models"]
-    },
-    {
-      "id": 12,
-      "title": "Artificial Intelligence Introduction",
-      "level": "Advanced",
-      "category": "Data Science",
-      "students": 30,
-      "instructor": "Lucas",
-      "thumbnail": "https://img.youtube.com/vi/JMUxmLyrhSk/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=JMUxmLyrhSk",
-      "description": "Explore artificial intelligence basics including intelligent systems and problem-solving techniques.",
-      "lessons": ["Intelligent Systems", "Problem Solving", "AI Basics"]
-    },
-    {
-      "id": 13,
-      "title": "Git & GitHub Mastery",
-      "level": "Beginner",
-      "category": "Programming",
-      "students": 110,
-      "instructor": "Henry",
-      "thumbnail": "https://img.youtube.com/vi/RGOj5yH7evk/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=RGOj5yH7evk",
-      "description": "Learn version control using Git and manage projects with GitHub.",
-      "lessons": ["Git Basics", "Commit & Push", "Branches", "Pull Requests"]
-    },
-    {
-      "id": 14,
-      "title": "Bootstrap for Web Design",
-      "level": "Beginner",
-      "category": "Web Development",
-      "students": 80,
-      "instructor": "Isabella",
-      "thumbnail": "https://img.youtube.com/vi/4sosXZsdy-s/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=4sosXZsdy-s",
-      "description": "Create responsive websites quickly using the Bootstrap framework.",
-      "lessons": ["Bootstrap Grid", "Forms", "Buttons", "Utilities"]
-    },
-    {
-      "id": 15,
-      "title": "MERN Stack Development",
-      "level": "Advanced",
-      "category": "Web Development",
-      "students": 50,
-      "instructor": "Alexander",
-      "thumbnail": "https://img.youtube.com/vi/7CqJlxBYj-M/0.jpg",
-      "youtubeLink": "https://www.youtube.com/watch?v=7CqJlxBYj-M",
-      "description": "Build full stack applications using MongoDB, Express, React, and Node.js.",
-      "lessons": ["MongoDB", "Express.js", "React", "Node.js"]
-    },
-    {
-      "id": 16,
-      "title": "UI/UX Design Basics",
-      "level": "Beginner",
-      "category": "Design",
-      "students": 65,
+      "id": "7",
+      "title": "MongoDB Database",
       "instructor": "Sophia",
-      "thumbnail": "https://via.placeholder.com/250x150?text=UI+UX",
-      "youtubeLink": "https://www.youtube.com/watch?v=placeholder16",
-      "description": "Introduction to UI/UX principles for web and mobile apps.",
-      "lessons": ["Wireframes", "Prototyping", "User Research", "Design Tools"]
+      "price": 799,
+      "thumbnail": "https://img.youtube.com/vi/ofme2o29ngU/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/ofme2o29ngU",
+      "duration": "5 hours",
+      "lessons": [
+        "MongoDB Introduction",
+        "Collections",
+        "CRUD Operations",
+        "Mongoose",
+        "Indexes"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Bootstrap Course",
+      "instructor": "Daniel",
+      "price": 499,
+      "thumbnail": "https://img.youtube.com/vi/4sosXZsdy-s/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/4sosXZsdy-s",
+      "duration": "3 hours",
+      "lessons": [
+        "Bootstrap Introduction",
+        "Grid System",
+        "Components",
+        "Forms",
+        "Navigation Bars"
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Git & GitHub",
+      "instructor": "William",
+      "price": 599,
+      "thumbnail": "https://img.youtube.com/vi/RGOj5yH7evk/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/RGOj5yH7evk",
+      "duration": "4 hours",
+      "lessons": [
+        "Git Basics",
+        "Repositories",
+        "Commit and Push",
+        "Branches",
+        "Pull Requests"
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Data Structures",
+      "instructor": "Kevin",
+      "price": 1099,
+      "thumbnail": "https://img.youtube.com/vi/RBSGKlAvoiM/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/RBSGKlAvoiM",
+      "duration": "10 hours",
+      "lessons": [
+        "Arrays",
+        "Linked Lists",
+        "Stacks",
+        "Queues",
+        "Trees",
+        "Graphs"
+      ]
+    },
+    {
+      "id": "11",
+      "title": "C Programming",
+      "instructor": "Andrew",
+      "price": 699,
+      "thumbnail": "https://img.youtube.com/vi/KJgsSFOSQv0/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/KJgsSFOSQv0",
+      "duration": "6 hours",
+      "lessons": [
+        "C Basics",
+        "Variables",
+        "Functions",
+        "Pointers",
+        "Structures"
+      ]
+    },
+    {
+      "id": "12",
+      "title": "Machine Learning Introduction",
+      "instructor": "Olivia",
+      "price": 1599,
+      "thumbnail": "https://img.youtube.com/vi/GwIo3gDZCVQ/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/GwIo3gDZCVQ",
+      "duration": "9 hours",
+      "lessons": [
+        "ML Basics",
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Regression",
+        "Classification"
+      ]
+    },
+    {
+      "id": "13",
+      "title": "UI UX Design",
+      "instructor": "Isabella",
+      "price": 899,
+      "thumbnail": "https://img.youtube.com/vi/c9Wg6Cb_YlU/0.jpg",
+      "videoUrl": "https://www.youtube.com/embed/c9Wg6Cb_YlU",
+      "duration": "5 hours",
+      "lessons": [
+        "Design Principles",
+        "Wireframing",
+        "Prototyping",
+        "User Research",
+        "Usability Testing"
+      ]
     }
-  ]
+  ],
+  "enrollments": [
+    {
+      "id": "e90a",
+      "courseId": "2",
+      "courseTitle": "JavaScript Fundamentals",
+      "completedLessons": [
+        0,
+        1
+      ],
+      "progress": null
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

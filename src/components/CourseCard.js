@@ -1,57 +1,43 @@
-import { useState } from "react";
+import React from "react";
 
-function CourseCard({ course }) {
-  const [enrolled, setEnrolled] = useState(false);
-
-  const handleEnroll = () => {
-    setEnrolled(true);
-  };
+function CourseCard({ course, onEnroll }) {
 
   return (
-    <div>
-     
-      <img
-        src={course.thumbnail || "https://via.placeholder.com/400x200?text=Course+Thumbnail"}
-        alt={course.title}
-        className="card-img-top mb-2"
-        style={{ height: "200px", objectFit: "cover", borderRadius: "4px" }}
-      />
+    <div className="col-md-4 mb-4">
+      <div className="card h-100 shadow">
 
-      {/* Course Details */}
-      <p><b>Category:</b> {course.category}</p>
-      <p><b>Level:</b> {course.level}</p>
+        {/* Course Thumbnail */}
+        <img
+          src={course.thumbnail}
+          className="card-img-top"
+          alt={course.title}
+          style={{ height: "180px", objectFit: "cover" }}
+        />
 
-      {course.lessons && (
-        <div>
-          <b>Lessons:</b>
-          <ul>
-            {course.lessons.map((lesson, idx) => (
-              <li key={idx}>{lesson}</li>
-            ))}
-          </ul>
+        <div className="card-body">
+
+          {/* Course Title */}
+          <h5 className="card-title">{course.title}</h5>
+
+          {/* Description */}
+          <p className="card-text">{course.description}</p>
+
+          {/* Course Details */}
+          <p><strong>Instructor:</strong> {course.instructor}</p>
+          <p><strong>Level:</strong> {course.level}</p>
+          <p><strong>Duration:</strong> {course.duration}</p>
+          <p><strong>Students:</strong> {course.students}</p>
+
+          {/* Enroll Button */}
+          <button
+            className="btn btn-primary w-100"
+            onClick={() => onEnroll(course)}
+          >
+            Enroll
+          </button>
+
         </div>
-      )}
-
-      {/* Watch Course Button */}
-      {course.youtubeLink && (
-        <a
-          href={course.youtubeLink}
-          target="_blank"
-          rel="noreferrer"
-          className="btn btn-primary btn-sm mt-2 me-2"
-        >
-          Watch Course
-        </a>
-      )}
-
-      {/* Enroll Button */}
-      <button
-        className={`btn btn-sm mt-2 ${enrolled ? "btn-success" : "btn-outline-success"}`}
-        onClick={handleEnroll}
-        disabled={enrolled}
-      >
-        {enrolled ? "Enrolled" : "Enroll"}
-      </button>
+      </div>
     </div>
   );
 }
