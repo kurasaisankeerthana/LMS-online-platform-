@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../services/api";
 
 function CourseDetails() {
 
@@ -8,8 +8,9 @@ function CourseDetails() {
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/courses/${id}`)
-      .then(res => setCourse(res.data));
+    axios.get(`/courses/${id}`)
+      .then(res => setCourse(res.data))
+      .catch(err => console.error("Error loading course:", err));
   }, [id]);
 
   if (!course) return <h3>Loading...</h3>;

@@ -219,14 +219,11 @@
   ],
   "enrollments": [
     {
-      "id": "e90a",
-      "courseId": "2",
-      "courseTitle": "JavaScript Fundamentals",
-      "completedLessons": [
-        0,
-        1
-      ],
-      "progress": null
+      "id": "1773305600601",
+      "courseId": "1",
+      "courseTitle": "React Basics",
+      "progress": 0,
+      "completedLessons": 0
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

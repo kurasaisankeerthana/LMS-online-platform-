@@ -17,12 +17,24 @@ function Courses() {
     loadCourses();
   }, []);
 
-  const loadCourses = async () => {
-    const courseData = await getCourses();
-    const enrollmentData = await getEnrollments();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    setCourses(courseData || []);
-    setEnrollments(enrollmentData || []);
+  const loadCourses = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const courseData = await getCourses();
+      const enrollmentData = await getEnrollments();
+
+      setCourses(courseData || []);
+      setEnrollments(enrollmentData || []);
+    } catch (err) {
+      console.error("Error loading courses:", err);
+      setError("Failed to load courses. Please check if the server is running.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   /* ---------- ENROLL COURSE ---------- */
@@ -66,83 +78,91 @@ function Courses() {
       <div className="container">
 
         <h2 className="mb-5 text-center text-white fw-bold">
-          📚 Explore Our Courses
+           Explore Our Courses
         </h2>
 
-        <div className="row">
+        {loading && (
+          <div className="text-center py-5">
+            <div className="loading mx-auto mb-3"></div>
+            <p className="text-white">Loading courses...</p>
+          </div>
+        )}
 
-          {/* If no course found */}
+        {error && (
+          <div className="alert alert-danger text-center py-5">
+            {error}
+            <button className="btn btn-warning mt-3" onClick={loadCourses}>
+              Retry
+            </button>
+          </div>
+        )}
 
-          {filteredCourses.length === 0 && (
-            <p className="text-white text-center fs-5">
-              No courses found.
-            </p>
-          )}
-
-          {filteredCourses.map(course => {
-
-            const enrolled = enrollments.find(
-              (e) => String(e.courseId) === String(course.id)
-            );
-
-            return (
-
-              <div className="col-md-4 mb-4" key={course.id}>
-
-                <div className="card h-100 shadow-lg border-0">
-
-                  <img
-                    src={course.thumbnail}
-                    className="card-img-top"
-                    alt={course.title}
-                    style={{ height: "200px", objectFit: "cover" }}
-                  />
-
-                  <div className="card-body">
-
-                    <h5 className="card-title fw-bold">{course.title}</h5>
-
-                    <p><strong>Instructor:</strong> {course.instructor}</p>
-                    <p><strong>Duration:</strong> {course.duration}</p>
-                    <p><strong>Price:</strong> ₹{course.price}</p>
-
-                    {enrolled && (
-                      <span className="badge bg-success mb-2 me-2">
-                        Enrolled
-                      </span>
-                    )}
-
-                    <div className="d-flex gap-2 mt-3">
-
-                      <Link
-                        to={`/player/${course.id}`}
-                        className="btn btn-success flex-fill"
-                      >
-                        Watch
-                      </Link>
-
-                      {!enrolled && (
-                        <button
-                          className="btn btn-primary flex-fill"
-                          onClick={() => handleEnroll(course)}
-                        >
-                          Enroll
-                        </button>
-                      )}
-
-                    </div>
-
-                  </div>
-
-                </div>
-
+        {!loading && !error && (
+          <div className="row">
+            {filteredCourses.length === 0 ? (
+              <div className="col-12">
+                <p className="text-white text-center fs-5">
+                  No courses found.
+                </p>
               </div>
+            ) : (
+              filteredCourses.map(course => {
+                const enrolled = enrollments.find(
+                  (e) => String(e.courseId) === String(course.id)
+                );
 
-            );
-
-          })}
-
-        </div>
+                return (
+                  <div className="col-md-4 mb-4" key={course.id}>
+                    <div className="card h-100 shadow-lg border-0">
+                      <img
+                        src={course.thumbnail}
+                        className="card-img-top"
+                        alt={course.title}
+                        style={{ height: "200px", objectFit: "cover" }}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title fw-bold">{course.title}</h5>
+                        <p><strong>Instructor:</strong> {course.instructor}</p>
+                        <p><strong>Duration:</strong> {course.duration}</p>
+                        <p><strong>Price:</strong> ₹{course.price}</p>
+                        {enrolled && (
+                          <span className="badge bg-success mb-2 me-2">
+                            Enrolled
+                          </span>
+                        )}
+                        <div className="d-flex gap-2 mt-3">
+                          {enrolled ? (
+                            <Link
+                              to={`/player/${course.id}`}
+                              className="btn btn-success flex-fill"
+                            >
+                              Watch
+                            </Link>
+                          ) : (
+                            <button
+                              className="btn btn-secondary flex-fill"
+                              onClick={() => alert("Please enroll in this course to watch the video")}
+                            >
+                              Watch
+                            </button>
+                          )}
+                          {!enrolled && (
+                            <button
+                              className="btn btn-primary flex-fill"
+                              onClick={() => handleEnroll(course)}
+                            >
+                              Enroll
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
 
       </div>
 

@@ -15,8 +15,17 @@ function MyCourses() {
 
   /* ---------------- READ ---------------- */
 
+  const [loadingCourses, setLoadingCourses] = useState(true);
+  const [errorCourses, setErrorCourses] = useState(null);
+
   useEffect(() => {
-    getCourses().then(data => setCourses(data || []));
+    getCourses()
+      .then(data => setCourses(data || []))
+      .catch(err => {
+        console.error(err);
+        setErrorCourses("Failed to load courses");
+      })
+      .finally(() => setLoadingCourses(false));
   }, []);
 
   useEffect(() => {
