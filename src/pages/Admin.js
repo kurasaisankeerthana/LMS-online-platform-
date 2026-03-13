@@ -22,7 +22,7 @@ function Admin() {
   };
 
   const handleEdit = (enroll) => {
-    setEditing(enroll.id);
+    setEditing(enroll._id);
     setFormData(enroll);
   };
 
@@ -73,11 +73,11 @@ function Admin() {
         </thead>
         <tbody>
           {enrollments.map(enroll => (
-            <tr key={enroll.id}>
+            <tr key={enroll._id}>
               <td>{enroll.studentName}</td>
               <td>{enroll.courseTitle}</td>
               <td>
-                {editing === enroll.id ? 
+                {editing === enroll._id ? 
                   <input type="number" value={formData.progress} onChange={e => setFormData({...formData, progress: e.target.value})} /> :
                   <div className="progress">
                     <div className="progress-bar" role="progressbar" style={{width: `${enroll.progress}%`}}>{enroll.progress}%</div>
@@ -85,17 +85,17 @@ function Admin() {
                 }
               </td>
               <td>
-                {editing === enroll.id ? 
+                {editing === enroll._id ? 
                   <input type="number" value={formData.assessmentScore} onChange={e => setFormData({...formData, assessmentScore: e.target.value})} /> :
                   enroll.assessmentScore
                 }
               </td>
               <td>
-                {editing === enroll.id ? 
+                {editing === enroll._id ? 
                   <button className="btn btn-success btn-sm me-2" onClick={handleSave}>Save</button> :
                   <button className="btn btn-warning btn-sm me-2" onClick={() => handleEdit(enroll)}>Edit</button>
                 }
-                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(enroll.id)}>Delete</button>
+                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(enroll._id)}>Delete</button>
               </td>
             </tr>
           ))}

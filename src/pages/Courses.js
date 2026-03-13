@@ -51,11 +51,11 @@ function Courses() {
     }
 
     const newEnrollment = {
-      id: Date.now().toString(),
       courseId: course.id,
       courseTitle: course.title,
+      studentName: "Current User",
       progress: 0,
-      completedLessons: 0
+      assessmentScore: 0
     };
 
     await addEnrollment(newEnrollment);

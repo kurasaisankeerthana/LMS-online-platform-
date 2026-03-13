@@ -43,11 +43,14 @@ function MyCourses() {
   /* ---------------- CREATE ---------------- */
 
   const enrollCourse = async (courseId) => {
-
+    const course = courses.find(c => c.id === courseId);
+    
     const newEnrollment = {
       courseId,
+      courseTitle: course?.title || "Unknown Course",
+      studentName: "Current User",
       progress: 0,
-      completedLessons: 0
+      assessmentScore: 0
     };
 
     await addEnrollment(newEnrollment);
@@ -56,9 +59,8 @@ function MyCourses() {
 
   /* ---------------- UPDATE ---------------- */
 
-  const updateProgress = async (enrollmentId, progress) => {
-
-    await updateEnrollmentProgress(enrollmentId, progress);
+  const updateProgress = async (enrollmentId, newProgress) => {
+    await updateEnrollmentProgress(enrollmentId, { progress: newProgress });
     alert("Progress Updated");
   };
 
@@ -109,16 +111,11 @@ function MyCourses() {
           {enrolledCourses.map(course => {
 
             const enrollment = enrollments.find(e => e.courseId === course.id);
+            const enrollmentId = enrollment?._id || enrollment?.id;
 
             const totalLessons = course.lessons?.length || 1;
 
-            const completedLessons =
-              enrollment?.completedLessons ??
-              Math.round((enrollment?.progress || 0) * totalLessons / 100);
-
-            const progress = Math.round(
-              (completedLessons / totalLessons) * 100
-            );
+            const progress = enrollment?.progress || 0;
 
             return (
 
@@ -168,7 +165,7 @@ function MyCourses() {
 
                     <button
                       className="btn btn-info w-100 mb-2"
-                      onClick={() => updateProgress(enrollment.id, progress + 10)}
+                      onClick={() => updateProgress(enrollmentId, Math.min(progress + 10, 100))}
                     >
                       Update Progress
                     </button>
@@ -177,7 +174,7 @@ function MyCourses() {
 
                     <button
                       className="btn btn-danger w-100 mb-2"
-                      onClick={() => removeEnrollment(enrollment.id)}
+                      onClick={() => removeEnrollment(enrollmentId)}
                     >
                       Unenroll Course
                     </button>

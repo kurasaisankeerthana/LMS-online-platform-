@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/api";
 
 function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-
-    const user = users.find(
-      (u) =>
-        u.username === form.username &&
-        u.email === form.email &&
-        u.password === form.password
-    );
-
-    if (!user) {
-      setError("Invalid Username, Email or Password");
-      return;
-    }
-
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    setLoading(true);
     setError("");
 
-    alert(`Welcome ${user.username}!`);
+    try {
+      const response = await login({
+        email: form.email,
+        password: form.password
+      });
 
-    navigate("/");
-    window.location.reload();
+      localStorage.setItem("currentUser", JSON.stringify(response.user));
+      localStorage.setItem("token", response.token);
+
+      alert(`Welcome ${response.user.username}!`);
+      navigate("/");
+      window.location.reload();
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -60,18 +60,6 @@ function Login() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label fw-semibold">Username</label>
-            <input
-              type="text"
-              name="username"
-              className="form-control"
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="mb-3">
             <label className="form-label fw-semibold">Email</label>
             <input
               type="email"
@@ -95,8 +83,8 @@ function Login() {
             />
           </div>
 
-          <button className="btn btn-primary w-100 fw-bold">
-            Login
+          <button className="btn btn-primary w-100 fw-bold" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

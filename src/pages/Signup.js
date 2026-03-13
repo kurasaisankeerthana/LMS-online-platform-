@@ -1,40 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../services/api";
 
 function Signup() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      await signup({
+        username: form.username,
+        email: form.email,
+        password: form.password
+      });
 
-    const exists = users.find(
-      (u) => u.username === form.username || u.email === form.email
-    );
-
-    if (exists) {
-      setError("Username or Email already exists");
-      return;
+      alert("Signup Successful! Please login.");
+      navigate("/login");
+    } catch (err) {
+      setError(err.response?.data?.message || "Signup failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    const newUser = {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-    };
-
-    users.push(newUser);
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Signup Successful! Please login.");
-    navigate("/login");
   };
 
   return (
@@ -98,8 +93,8 @@ function Signup() {
             />
           </div>
 
-          <button className="btn btn-primary w-100 fw-bold">
-            Signup
+          <button className="btn btn-primary w-100 fw-bold" disabled={loading}>
+            {loading ? "Creating Account..." : "Signup"}
           </button>
         </form>
       </div>

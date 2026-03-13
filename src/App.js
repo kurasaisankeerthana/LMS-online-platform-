@@ -7,7 +7,8 @@ import MyCourses from "./pages/MyCourses";
 import Player from "./pages/Player";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Admin from "./pages/Admin"; // Make sure this file exists
+import Admin from "./pages/Admin";
+import CourseManagement from "./pages/CourseManagement";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/course-management" element={<CourseManagement />} />
       </Routes>
     </Router>
   );
